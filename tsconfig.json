@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true /* Enable all strict type-checking options. */,
+    "strictPropertyInitialization": false /* Check for class properties that are declared but not set in the constructor. */,
+    "rootDirs": ["src", "test"],
+    "noImplicitAny": false,
+    "removeComments": false,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "dist"
+  }
+}

@@ -1,0 +1,7 @@
+patternDefinitions:
+  AAA: AAA
+  ABC: ABC[isSequential:true]
+  ABC-not-sequenced: ABC
+  999: XXX
+  999🧑‍🤝‍🧑9: XXX🧑‍🤝‍🧑X
+  360°: XXX°[min:0;max:360;base:decimal]
