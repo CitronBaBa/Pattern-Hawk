@@ -1,5 +1,8 @@
-import PatternAttributeMap from './PatternAttribute'
-import { DigitSet, getDigitSetCharLength, getDigitValue } from './util/digitset'
+import {
+  DigitSet,
+  getDigitSetCharLength,
+  getDigitValue,
+} from '../util/digitset'
 
 /**
  * use letter A-G to represents unique digits, use X as wildcards

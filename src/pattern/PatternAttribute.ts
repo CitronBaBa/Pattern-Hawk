@@ -1,4 +1,4 @@
-import { DigitSet, getDigitSetCharLength } from './util/digitset'
+import { DigitSet, getDigitSetCharLength } from '../util/digitset'
 
 export type PatternAttributeKey =
   | 'base'

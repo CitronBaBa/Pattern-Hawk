@@ -9,6 +9,7 @@ function main() {
   const ex = [
     '111',
     '123',
+    '234',
     '145',
     '122',
     '1111',
@@ -26,8 +27,6 @@ function main() {
     const r = detctor.detect(s)
     console.log(`${s}: ${Array.from(r).join(', ')}`)
   })
-
-  const r = detctor.detect('123')
 }
 
 main()
