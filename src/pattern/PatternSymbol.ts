@@ -52,9 +52,11 @@ export class DigitPatternSymbol extends PatternSymbol {
     return this.getValue(char) !== undefined
   }
 
+  // return undefined if given char is not numerical
+  getValue = (char: string): number | undefined =>
+    getDigitValue(char, this.digitSet)
+
   getType = (): SymbolType => 'digit'
   isWildCard = () => this.char === digitSymbolWildcard
   getStrLength = () => getDigitSetCharLength(this.digitSet)
-  getValue = (char: string): number | undefined =>
-    getDigitValue(char, this.digitSet)
 }

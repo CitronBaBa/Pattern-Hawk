@@ -1,14 +1,17 @@
-import ConsistencyValidator from '../validator/ConsistencyValidator'
-import { IsSequentialValidator } from '../validator/IsSequentialValidator'
-import { ValueValidator } from '../validator/ValueValidator'
-import PatternAttributeMap, { NumberBase } from './PatternAttribute'
+import ConsistencyValidator from './validator/ConsistencyValidator'
+import { IsSequentialValidator } from './validator/IsSequentialValidator'
+import { ValueValidator } from './validator/ValueValidator'
+import PatternAttributeMap from './PatternAttribute'
 import PatternSymbol, { DigitPatternSymbol } from './PatternSymbol'
 import {
   PatternValidationError,
-  PatternVisitor,
   ResultValidator,
   SequenceValidator,
-} from './PatternValidator'
+} from './parsing/ParsingValidator'
+import { ParsingResultRecorder } from './parsing/ParsingResult'
+import { ParsingVisitor } from './parsing/ParsingVisitor'
+import { MMDDValidator } from './validator/custom/MMDDValidator'
+import { TimesTableValidator } from './validator/custom/TimesTableValidator'
 
 /**
  * Use a standlone expression to define a pattern
@@ -53,9 +56,11 @@ export default class Pattern {
     )
   }
 
-  public validate = (s: string): boolean => {
+  public validateInput = (s: string): boolean => {
     const { seqValidators, resultValidators } = this.createValidators()
-    const resultRecorder = new ResultRecorder(this.attributeMap.getBase())
+    const resultRecorder = new ParsingResultRecorder(
+      this.attributeMap.getBase(),
+    )
 
     try {
       const traverseSuccess = this.parseInput(s, [
@@ -63,7 +68,7 @@ export default class Pattern {
         resultRecorder,
       ])
       if (!traverseSuccess) return false
-      const result = { ...resultRecorder.yield(), raw: s }
+      const result = resultRecorder.yield()
       resultValidators.forEach((v) => v.validate(result))
     } catch (e) {
       if (typeof e === 'object') {
@@ -86,7 +91,7 @@ export default class Pattern {
    * @param visitors visitors can watch the digits/chars as they get parsed
    * @returns
    */
-  private parseInput = (s: string, visitors?: PatternVisitor[]): boolean => {
+  private parseInput = (s: string, visitors?: ParsingVisitor[]): boolean => {
     if (s.length !== this.patternLength) return false
 
     for (
@@ -96,6 +101,10 @@ export default class Pattern {
     ) {
       const symbol = this.symbols[symbolIdx]
       const nextChar = s.slice(strIdx, strIdx + symbol.getStrLength())
+      if (!symbol.isCompatibleChar(nextChar)) {
+        return false
+      }
+
       visitors?.forEach((visitor) => visitor.visit?.(nextChar, symbol))
 
       if (symbol.getType() === 'static') {
@@ -115,7 +124,7 @@ export default class Pattern {
     return true
   }
 
-  createValidators = () => {
+  private createValidators = () => {
     const seqValidators: SequenceValidator[] = []
     const resultValidators: ResultValidator[] = []
 
@@ -125,7 +134,7 @@ export default class Pattern {
     // min max
     const min = this.attributeMap.getMin()
     const max = this.attributeMap.getMax()
-    if (min !== undefined && max !== undefined) {
+    if (min !== undefined || max !== undefined) {
       resultValidators.push(new ValueValidator({ min, max }))
     }
 
@@ -134,40 +143,16 @@ export default class Pattern {
       seqValidators.push(new IsSequentialValidator())
     }
 
+    // Custom rules
+    if (this.attributeMap.get('_CUSTOM_MMDD') !== undefined) {
+      resultValidators.push(new MMDDValidator())
+    }
+    if (this.attributeMap.get('_CUSTOM_TimesTable') !== undefined) {
+      resultValidators.push(new TimesTableValidator())
+    }
+
     return { seqValidators, resultValidators }
   }
 
   getLength = () => this.patternLength
-}
-
-class ResultRecorder implements PatternVisitor {
-  private baseNum = 10
-  private digits: number[] = []
-
-  constructor(base: NumberBase) {
-    switch (base) {
-      case 'decimal':
-        this.baseNum = 10
-        break
-      case 'hex':
-        this.baseNum = 16
-        break
-    }
-  }
-
-  visitDigit = (digit: number) => {
-    this.digits.push(digit)
-  }
-
-  yield = () => {
-    const numericValue = this.digits.reduce(
-      (sum, curr, index) =>
-        sum + curr * Math.pow(this.baseNum, this.digits.length - index - 1),
-      0,
-    )
-    return {
-      numericValue,
-      digits: this.digits,
-    }
-  }
 }

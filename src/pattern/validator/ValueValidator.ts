@@ -1,7 +1,7 @@
 import {
   PatternValidationError,
   ResultValidator,
-} from '../pattern/PatternValidator'
+} from '../parsing/ParsingValidator'
 
 export class ValueValidator implements ResultValidator {
   min: number | undefined
@@ -12,7 +12,7 @@ export class ValueValidator implements ResultValidator {
     this.max = max
   }
 
-  validate = ({ numericValue: val }: { numericValue: number }) => {
+  validate = ({ numericValue: val }) => {
     const valid =
       (this.min === undefined || val >= this.min) &&
       (this.max === undefined || val <= this.max)

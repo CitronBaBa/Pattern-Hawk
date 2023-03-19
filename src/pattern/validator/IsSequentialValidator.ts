@@ -1,8 +1,11 @@
 import {
   PatternValidationError,
   SequenceValidator,
-} from '../pattern/PatternValidator'
+} from '../parsing/ParsingValidator'
 
+/**
+ * Validate consecutive digits are in an ascending sequence
+ */
 export class IsSequentialValidator implements SequenceValidator {
   private prev: number | undefined = undefined
 
