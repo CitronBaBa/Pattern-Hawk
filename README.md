@@ -18,6 +18,11 @@ You will need a node version of 16 or above.
 - run a command line to directly interact with it.  
   `npm run start`
 
+- main entry point in code.  
+  `PatternDetector.detect(s: string): Set<string>`   
+  `PatternDetector.detectDotBitName(s: string): Set<string>`
+
+
 ---
 
 ## Pattern Syntax
