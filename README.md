@@ -43,7 +43,7 @@ digitSet | the set of chars used to represent the digit number, can be Chinese, 
 min | minimum numeric value of the variable digits.   
 max | maximum numeric value of the variable digits.   
 isSequential | digits should be in an sequential ascending order when set to true.     
-_CUSTOM_${string} | other specific rules to be applied.    
+\_CUSTOM\_${string} | other specific rules to be applied.    
 
 
 ## Grouping Syntax
