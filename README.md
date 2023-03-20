@@ -1,10 +1,26 @@
 # Pattern-Hawk
-Identifies digit patterns in a given string
+**This project aims to identify digit patterns in a given string.**   
+     
+**It creates a standalone syntax to precisely describe these different digit patterns, which can then be used to check any input string for conformity.**
 
-This project creates a standalone syntax to precisely describe different digit patterns, which can then be checked against any input string for conformity. 
+
+## How to run it
+You will need a node version of 16 or above.
+
+* set up.  
+`git clone ...`    
+`npm install`
+
+* run all the test cases.  
+`npm run test`
+
+* run a command line to directly interact with it.  
+`npm run start`  
+
+---------
 
 ## Pattern Syntax
-A typical expression that defines a pattern ABB[base:hex;charset:hex] 
+A typical expression that defines a pattern: ABB[base:hex;charset:hex] 
 
 ### Symbols
 Letter A-G are used to represents unique digit positions in a given string, while X represents wildcard,  
@@ -38,18 +54,3 @@ _CUSTOM_${string} | other specific rules to be applied.
  * (pattern1)|(pattern2) => matches pattern1 or pattern2
  * (pattern1)(pattern2) | (pattern3)(pattern4) => matches pattern1 and then pattern2, or matches pattern3 and then pattern4
  * ((pattern1) | (pattern2)) (pattern3) => not supported yet
-
----
-
-# To run it
-You will need a node version of 16 or above.
-
-* set up.  
-`git clone ...`    
-`npm install`
-
-* run all the test cases.  
-`npm run test`
-
-* run a command line to directly interact with it.  
-`npm run start`  
