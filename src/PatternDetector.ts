@@ -9,7 +9,7 @@ export class PatternDetector {
     }
   }
 
-  public detect(s: string) {
+  public detect(s: string): Set<string> {
     const result = new Set<string>()
     Object.entries(this.patternMap).forEach(([name, pg]) => {
       if (pg.validateInput(s)) {
@@ -17,5 +17,10 @@ export class PatternDetector {
       }
     })
     return result
+  }
+
+  public detectDotBit(s: string): Set<string> {
+    if (!s.endsWith('.bit')) throw new Error('Input must have a .bit suffix')
+    return this.detect(s.slice(0, s.length - 4))
   }
 }

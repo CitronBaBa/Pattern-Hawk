@@ -57,7 +57,6 @@ export class PatternGroup {
             throw new Error('Illegal PatternGroup syntax')
           }
         }
-        console.log(patternExpr)
         this.children.push(new Pattern(patternExpr))
       } else {
         symbolStack.push(char)

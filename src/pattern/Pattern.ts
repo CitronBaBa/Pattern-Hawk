@@ -144,10 +144,10 @@ export default class Pattern {
     }
 
     // Custom rules
-    if (this.attributeMap.get('_CUSTOM_MMDD') !== undefined) {
+    if (this.attributeMap.get('_CUSTOM_MMDD') === 'true') {
       resultValidators.push(new MMDDValidator())
     }
-    if (this.attributeMap.get('_CUSTOM_TimesTable') !== undefined) {
+    if (this.attributeMap.get('_CUSTOM_TimesTable') === 'true') {
       resultValidators.push(new TimesTableValidator())
     }
 

@@ -27,8 +27,10 @@ export const getDigitValue = (
     case 'CN':
       return ChineseDigitMap[char]
     case 'FlagEmojiSet0':
-      // TODO handle emoji char 🇺🇸
-      throw Error('not implemented yet')
+      return FlagEmojiSet0Map[char]
+    case 'hex':
+      if (/^[0-9,a-f]$/.test(char)) return parseInt(char, 16)
+      return undefined
     case 'standard':
       if (/^[0-9]$/.test(char)) return parseInt(char)
       return undefined
@@ -74,4 +76,29 @@ export const ArabicDigitMap = {
   '٧': 7,
   '٨': 8,
   '٩': 9,
+}
+
+export const FlagEmojiSet0Map = {
+  '🇺🇸': '0',
+  '🇨🇳': '1',
+  '🇺🇳': '2',
+  '🇦🇪': '3',
+  '🇨🇦': '4',
+  '🇰🇷': '5',
+  '🇫🇷': '6',
+  '🇯🇵': '7',
+  '🇧🇷': '8',
+  '🇩🇪': '9',
+  '🇪🇸': '10',
+  '🇷🇺': '11',
+  '🇬🇧': '12',
+  '🇪🇺': '13',
+  '🇻🇳': '14',
+  '🇺🇦': '15',
+  '🇦🇺': '16',
+  '🇸🇦': '17',
+  '🇨🇭': '18',
+  '🇮🇳': '19',
+  '🇮🇱': '20',
+  '🇹🇭': '21',
 }
