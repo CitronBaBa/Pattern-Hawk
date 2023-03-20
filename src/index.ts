@@ -12,7 +12,7 @@ function main() {
     output: process.stdout,
   })
 
-  const inquireContinuously = () =>
+  const inquireContinuously = (): void =>
     cli.question('Enter your input string? ', (answer) => {
       const result = detector.detect(answer)
       console.log(

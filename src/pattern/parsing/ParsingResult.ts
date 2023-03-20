@@ -23,7 +23,7 @@ export class ParsingResultRecorder implements ParsingVisitor {
     }
   }
 
-  visitDigit = (digit: number) => {
+  visitDigit = (digit: number): void => {
     this.digits.push(digit)
   }
 

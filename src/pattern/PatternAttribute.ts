@@ -37,7 +37,7 @@ export default class PatternAttributeMap {
       .filter((segment) => !!segment)
       .forEach((attrStr) => {
         const [name, value] = attrStr.split(':')
-        this.map[name] = value
+        this.map[name as PatternAttributeKey] = value
       })
   }
 

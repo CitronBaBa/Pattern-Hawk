@@ -6,7 +6,7 @@ export type DigitSet =
   | 'hex'
   | 'FlagEmojiSet0'
 
-export const getDigitSetCharLength = (digitSet: DigitSet) => {
+export const getDigitSetCharLength = (digitSet: DigitSet): number => {
   switch (digitSet) {
     case 'FlagEmojiSet0':
       return 4
@@ -39,7 +39,7 @@ export const getDigitValue = (
   }
 }
 
-export const ChineseDigitMap = {
+export const ChineseDigitMap: Record<string, number> = {
   零: 0,
   一: 1,
   二: 2,
@@ -52,7 +52,7 @@ export const ChineseDigitMap = {
   九: 9,
 }
 
-export const JapaneseDigitMap = {
+export const JapaneseDigitMap: Record<string, number> = {
   零: 0,
   壱: 1,
   弐: 2,
@@ -65,7 +65,7 @@ export const JapaneseDigitMap = {
   玖: 9,
 }
 
-export const ArabicDigitMap = {
+export const ArabicDigitMap: Record<string, number> = {
   '٠': 0,
   '١': 1,
   '٢': 2,
@@ -78,27 +78,27 @@ export const ArabicDigitMap = {
   '٩': 9,
 }
 
-export const FlagEmojiSet0Map = {
-  '🇺🇸': '0',
-  '🇨🇳': '1',
-  '🇺🇳': '2',
-  '🇦🇪': '3',
-  '🇨🇦': '4',
-  '🇰🇷': '5',
-  '🇫🇷': '6',
-  '🇯🇵': '7',
-  '🇧🇷': '8',
-  '🇩🇪': '9',
-  '🇪🇸': '10',
-  '🇷🇺': '11',
-  '🇬🇧': '12',
-  '🇪🇺': '13',
-  '🇻🇳': '14',
-  '🇺🇦': '15',
-  '🇦🇺': '16',
-  '🇸🇦': '17',
-  '🇨🇭': '18',
-  '🇮🇳': '19',
-  '🇮🇱': '20',
-  '🇹🇭': '21',
+export const FlagEmojiSet0Map: Record<string, number> = {
+  '🇺🇸': 0,
+  '🇨🇳': 1,
+  '🇺🇳': 2,
+  '🇦🇪': 3,
+  '🇨🇦': 4,
+  '🇰🇷': 5,
+  '🇫🇷': 6,
+  '🇯🇵': 7,
+  '🇧🇷': 8,
+  '🇩🇪': 9,
+  '🇪🇸': 10,
+  '🇷🇺': 11,
+  '🇬🇧': 12,
+  '🇪🇺': 13,
+  '🇻🇳': 14,
+  '🇺🇦': 15,
+  '🇦🇺': 16,
+  '🇸🇦': 17,
+  '🇨🇭': 18,
+  '🇮🇳': 19,
+  '🇮🇱': 20,
+  '🇹🇭': 21,
 }

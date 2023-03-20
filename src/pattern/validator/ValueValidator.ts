@@ -9,7 +9,7 @@ export class ValueValidator implements ResultValidator {
     this.max = max
   }
 
-  validate = ({ numericValue: val }) => {
+  validate = ({ numericValue: val }: { numericValue: number }) => {
     const valid =
       (this.min === undefined || val >= this.min) &&
       (this.max === undefined || val <= this.max)

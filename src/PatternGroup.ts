@@ -28,7 +28,7 @@ export class PatternGroup {
     }
   }
 
-  parseExpression(expr: string) {
+  parseExpression(expr: string): void {
     if (expr.includes('|')) {
       this.childrenRelation = 'or'
       this.parseOrExpression(expr)
@@ -38,14 +38,14 @@ export class PatternGroup {
     }
   }
 
-  parseOrExpression(expr: string) {
+  parseOrExpression(expr: string): void {
     const subExprs = expr.split('|')
     for (const subExpr of subExprs) {
       this.children.push(new PatternGroup(subExpr))
     }
   }
 
-  parseAndExpression(expr: string) {
+  parseAndExpression(expr: string): void {
     const symbolStack: string[] = []
 
     const popPatternExpr = (left: string | undefined) => {
