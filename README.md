@@ -20,7 +20,7 @@ You will need a node version of 16 or above.
 ---------
 
 ## Pattern Syntax
-A typical expression that defines a pattern: ABB[base:hex;charset:hex] 
+A typical expression that defines a pattern: ABB[base:hex;charset:hex], it consits both symbols (ABB) and attributes ([base:hex;charset:hex]).
 
 ### Symbols
 Letter A-G are used to represents unique digit positions in a given string, while X represents wildcard,  
