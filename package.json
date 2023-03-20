@@ -7,7 +7,7 @@
     "prestart": "npm run build",
     "start": "node ./node_modules/ts-node/dist/bin.js dist/src/index.js",
     "build": "rimraf dist && tsc",
-    "test": "cross-env NODE_ENV=test jest --coverage",
+    "test": "cross-env NODE_ENV=test jest --verbose --coverage",
     "lint": "eslint . --ext .ts --ext .mts",
     "prettier": "prettier --config .prettierrc --write ."
   },

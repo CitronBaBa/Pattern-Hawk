@@ -1,7 +1,4 @@
-import {
-  PatternValidationError,
-  ResultValidator,
-} from '../parsing/ParsingValidator'
+import { ValidationError, ResultValidator } from '../parsing/ParsingValidator'
 
 export class ValueValidator implements ResultValidator {
   min: number | undefined
@@ -17,7 +14,7 @@ export class ValueValidator implements ResultValidator {
       (this.min === undefined || val >= this.min) &&
       (this.max === undefined || val <= this.max)
     if (!valid) {
-      throw new PatternValidationError(
+      throw new ValidationError(
         'MinMax',
         `Min max check failed, min: ${this.min}, max: ${this.max}, given value ${val} `,
       )

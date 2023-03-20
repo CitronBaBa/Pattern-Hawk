@@ -1,12 +1,12 @@
 import { ParsingResult } from '../../parsing/ParsingResult'
 import {
-  PatternValidationError,
+  ValidationError,
   ResultValidator,
 } from '../../parsing/ParsingValidator'
 
 // Validate multiplication table as 4 digits
 export class TimesTableValidator implements ResultValidator {
-  validate = ({ digits }: ParsingResult) => {
+  validate = ({ digits }: { digits: number[] }) => {
     let valid = false
     if (
       digits.length === 4 &&
@@ -18,7 +18,7 @@ export class TimesTableValidator implements ResultValidator {
     }
 
     if (!valid) {
-      throw new PatternValidationError('TimesTable', `TimesTable check failed`)
+      throw new ValidationError('TimesTable', `TimesTable check failed`)
     }
   }
 }

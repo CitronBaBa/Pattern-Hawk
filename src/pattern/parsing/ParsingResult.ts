@@ -6,6 +6,8 @@ export type ParsingResult = {
   digits: number[]
 }
 
+export class ParsingError extends Error {}
+
 export class ParsingResultRecorder implements ParsingVisitor {
   private baseNum = 10
   private digits: number[] = []

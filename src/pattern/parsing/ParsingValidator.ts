@@ -9,7 +9,7 @@ export interface ResultValidator {
   validate: (rarsingResult: ParsingResult) => void
 }
 
-export class PatternValidationError extends Error {
+export class ValidationError extends Error {
   type = 'patternValidation'
   subject: string
 

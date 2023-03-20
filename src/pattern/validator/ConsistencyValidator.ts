@@ -1,8 +1,5 @@
 import PatternSymbol, { DigitPatternSymbol } from '../PatternSymbol'
-import {
-  PatternValidationError,
-  SequenceValidator,
-} from '../parsing/ParsingValidator'
+import { ValidationError, SequenceValidator } from '../parsing/ParsingValidator'
 
 /**
  *  Validate digit uniqueness based on 'ABCX' syntax
@@ -21,7 +18,7 @@ export default class ConsistencyValidator implements SequenceValidator {
     const targetChar = this.symbolToDigitMap[digitSymbol.getChar()]
     if (targetChar === undefined) {
       if (this.digitSet.has(nextChar)) {
-        throw new PatternValidationError(
+        throw new ValidationError(
           'Consistency',
           `'${nextChar}' digit already exits`,
         )
@@ -29,7 +26,7 @@ export default class ConsistencyValidator implements SequenceValidator {
       this.digitSet.add(nextChar)
       this.symbolToDigitMap[digitSymbol.getChar()] = nextChar
     } else if (nextChar !== targetChar) {
-      throw new PatternValidationError(
+      throw new ValidationError(
         'Consistency',
         `'${nextChar}' digit is expected to be ${targetChar}`,
       )

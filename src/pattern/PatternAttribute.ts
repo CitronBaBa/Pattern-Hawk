@@ -25,7 +25,7 @@ export default class PatternAttributeMap {
       try {
         this.parseExpression(expression)
       } catch (e: unknown) {
-        console.error(`Invalid PatternAttributeMap expression: ${expression}`)
+        console.info(`Invalid PatternAttributeMap expression: ${expression}`)
         throw e
       }
     }

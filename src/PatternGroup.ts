@@ -1,3 +1,4 @@
+import exp from 'constants'
 import Pattern from './pattern/Pattern'
 
 /**
@@ -22,7 +23,7 @@ export class PatternGroup {
     try {
       this.parseExpression(expression)
     } catch (e: unknown) {
-      console.error(`Invalid PatternGroup expression: ${expression}`)
+      console.info(`Invalid PatternGroup expression: ${expression}`)
       throw e
     }
   }
@@ -46,19 +47,28 @@ export class PatternGroup {
 
   parseAndExpression(expr: string) {
     const symbolStack: string[] = []
+
+    const popPatternExpr = (left: string | undefined) => {
+      let patternExpr = ''
+      let poppedChar: string | undefined = ''
+      while (poppedChar !== left && poppedChar !== undefined) {
+        patternExpr = poppedChar + patternExpr
+        poppedChar = symbolStack.pop()
+      }
+      if (poppedChar !== left) {
+        throw new Error('Illegal PatternGroup syntax')
+      }
+      this.children.push(new Pattern(patternExpr))
+    }
+
     for (const char of expr) {
       if (char === ')') {
-        let patternExpr = ''
-        let poppedChar: string | undefined = ''
-        while (poppedChar !== '(') {
-          patternExpr = poppedChar + patternExpr
-          poppedChar = symbolStack.pop()
-          if (poppedChar === undefined) {
-            throw new Error('Illegal PatternGroup syntax')
-          }
-        }
-        this.children.push(new Pattern(patternExpr))
+        popPatternExpr('(')
       } else {
+        // when '(', ')' is omitted
+        if (char === '(' && symbolStack.length > 0) {
+          popPatternExpr(undefined)
+        }
         symbolStack.push(char)
       }
     }
@@ -73,7 +83,7 @@ export class PatternGroup {
     }
   }
 
-  public validateInput(s: string) {
+  public validateInput(s: string): boolean {
     if (this.childrenRelation === 'or') {
       return this.children.some((c) => c.validateInput(s))
     }
@@ -93,6 +103,11 @@ export class PatternGroup {
     return true
   }
 
+  public getChildrenRelation = (): GroupRelation => this.childrenRelation
+
+  /**
+   * Should consider variable length if embedded relations were added
+   *  */
   public getLength = (): number =>
     this.children.reduce((sum, curr) => sum + curr.getLength(), 0)
 }

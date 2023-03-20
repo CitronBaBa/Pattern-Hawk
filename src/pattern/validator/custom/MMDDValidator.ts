@@ -1,6 +1,6 @@
 import { ParsingResult } from '../../parsing/ParsingResult'
 import {
-  PatternValidationError,
+  ValidationError,
   ResultValidator,
 } from '../../parsing/ParsingValidator'
 
@@ -8,7 +8,7 @@ const possibleDaysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 // Validate month/day combination as 4 digits
 export class MMDDValidator implements ResultValidator {
-  validate = ({ digits }: ParsingResult) => {
+  validate = ({ digits }: { digits: number[] }) => {
     let valid = false
 
     if (digits.length === 4) {
@@ -22,7 +22,7 @@ export class MMDDValidator implements ResultValidator {
     }
 
     if (!valid) {
-      throw new PatternValidationError('MMDD', `MMDD check failed`)
+      throw new ValidationError('MMDD', `MMDD check failed`)
     }
   }
 }

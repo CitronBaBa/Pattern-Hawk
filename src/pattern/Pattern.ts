@@ -1,10 +1,10 @@
 import ConsistencyValidator from './validator/ConsistencyValidator'
-import { IsSequentialValidator } from './validator/IsSequentialValidator'
+import { SequentialValidator } from './validator/SequentialValidator'
 import { ValueValidator } from './validator/ValueValidator'
 import PatternAttributeMap from './PatternAttribute'
 import PatternSymbol, { DigitPatternSymbol } from './PatternSymbol'
 import {
-  PatternValidationError,
+  ValidationError,
   ResultValidator,
   SequenceValidator,
 } from './parsing/ParsingValidator'
@@ -30,7 +30,7 @@ export default class Pattern {
     try {
       this.parseExpression(expression)
     } catch (e: unknown) {
-      console.error(`Invalid Pattern expression: ${expression}`)
+      console.info(`Invalid Pattern expression: ${expression}`)
       throw e
     }
   }
@@ -63,16 +63,16 @@ export default class Pattern {
     )
 
     try {
-      const traverseSuccess = this.parseInput(s, [
+      const parseSuccess = this.parseInput(s, [
         ...seqValidators,
         resultRecorder,
       ])
-      if (!traverseSuccess) return false
+      if (!parseSuccess) return false
       const result = resultRecorder.yield()
       resultValidators.forEach((v) => v.validate(result))
     } catch (e) {
       if (typeof e === 'object') {
-        const errObj = e as PatternValidationError
+        const errObj = e as ValidationError
         if (errObj.type === 'patternValidation') {
           return false
         }
@@ -91,7 +91,7 @@ export default class Pattern {
    * @param visitors visitors can watch the digits/chars as they get parsed
    * @returns
    */
-  private parseInput = (s: string, visitors?: ParsingVisitor[]): boolean => {
+  public parseInput = (s: string, visitors?: ParsingVisitor[]): boolean => {
     if (s.length !== this.patternLength) return false
 
     for (
@@ -140,7 +140,7 @@ export default class Pattern {
 
     // isSequential
     if (this.attributeMap.getIsSequential()) {
-      seqValidators.push(new IsSequentialValidator())
+      seqValidators.push(new SequentialValidator())
     }
 
     // Custom rules
@@ -154,5 +154,7 @@ export default class Pattern {
     return { seqValidators, resultValidators }
   }
 
+  getAttributes = () => this.attributeMap
+  getSymbols = () => this.symbols
   getLength = () => this.patternLength
 }

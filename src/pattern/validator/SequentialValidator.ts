@@ -1,12 +1,9 @@
-import {
-  PatternValidationError,
-  SequenceValidator,
-} from '../parsing/ParsingValidator'
+import { ValidationError, SequenceValidator } from '../parsing/ParsingValidator'
 
 /**
  * Validate consecutive digits are in an ascending sequence
  */
-export class IsSequentialValidator implements SequenceValidator {
+export class SequentialValidator implements SequenceValidator {
   private prev: number | undefined = undefined
 
   visitDigit = (digit: number) => {
@@ -15,10 +12,7 @@ export class IsSequentialValidator implements SequenceValidator {
       return
     }
     if (digit - this.prev !== 1) {
-      throw new PatternValidationError(
-        'IsSequential',
-        'Input is not sequential',
-      )
+      throw new ValidationError('Sequential', 'Input is not sequential')
     }
     this.prev = digit
   }

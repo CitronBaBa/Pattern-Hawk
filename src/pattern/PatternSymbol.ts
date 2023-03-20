@@ -9,8 +9,8 @@ import {
    others as static non-digit string
    can be expanded to include more or escape these letters 
  */
-const digitSymbolRegex = /^[A-G,X]$/
-const digitSymbolWildcard = 'X'
+export const digitSymbolRegex = /^[A-G,X]$/
+export const digitSymbolWildcard = 'X'
 export type SymbolType = 'digit' | 'static'
 
 export default class PatternSymbol {
