@@ -15,7 +15,7 @@ import { TimesTableValidator } from './validator/custom/TimesTableValidator'
 
 /**
  * Use a standlone expression to define a pattern
- * examples: "XXX", "ABC", "ABC-DDDD°[min:0;max:360;base:decimal;charSet:NUM;]"
+ * examples: "XXX", "ABC", "ABC-DDDD°[min:0;max:360;base:decimal;digitSet:standard;]"
  */
 export default class Pattern {
   static attributeRegex = /\[.*\]$/
