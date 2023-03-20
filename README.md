@@ -34,7 +34,7 @@ X has 10 possible values, and A has 10 possible values uninfluenced by X, making
 
 
 ### Attributes
-trailing [key:val;key:val;key:val...] in a pattern specifies other constraints that will be enforced on this pattern   
+Trailing [key:val;key:val;key:val...] in a pattern specifies other constraints that will be enforced on this pattern   
 
 key | value |
 | ----------- | ----------- |
