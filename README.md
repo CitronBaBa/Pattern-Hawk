@@ -1,8 +1,11 @@
 # Pattern-Hawk
 
-**This project aims to identify digit patterns in a given string.**
+**A program to determine digit patterns like AAA for 111, ABB for 122/133/588 etc.**   
 
-**It creates a standalone syntax to precisely describe these different digit patterns, which can then be used to check any input string for conformity.**
+Such pattern is often used in ENS (domain name in ETH) https://godid.io/search?tab=category  
+To do so it creates a standalone syntax to precisely describe these different digit patterns, which can then be used to check any input string for conformity.
+
+**The code also demonstrates an OPP way towards typescript.**
 
 ## How to run it
 
